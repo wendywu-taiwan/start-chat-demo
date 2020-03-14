@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">StartChatDemo</string>
+    <string name="text_receiver_title">To</string>
+    <string name="text_subject_title">Subject</string>
+    <string name="text_subject_count">0/85</string>
+    <string name="text_subject_hint">If you don’t enter a Subject, your message will be added to your direct conversation.</string>
+    <string name="text_message_hint">Write your message&#8230;</string>
+    <string name="text_message_count">0/5000</string>
+    <string name="text_description_message_send">send message</string>
+    <string name="text_description_message_empty">can not send empty message</string>
+
+</resources>

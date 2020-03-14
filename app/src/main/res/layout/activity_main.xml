@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingBottom="@dimen/activity_padding_vertical"
+    android:paddingLeft="@dimen/activity_padding_horizontal"
+    android:paddingRight="@dimen/activity_padding_horizontal"
+    android:paddingTop="@dimen/activity_padding_vertical"
+    tools:context="com.example.wendywu.startchatdemo.MainActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/receiver_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_layout_height"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:background="@drawable/text_input_shape"
+        android:paddingBottom="@dimen/input_layout_padding_vertical"
+        android:paddingEnd="@dimen/input_layout_padding_end"
+        android:paddingStart="@dimen/input_layout_padding_start"
+        android:paddingTop="@dimen/input_layout_padding_vertical">
+
+        <TextView
+            android:id="@+id/receiver_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/title_text_margin_end"
+            android:fontFamily="monospace"
+            android:gravity="center_vertical"
+            android:text="@string/text_receiver_title"
+            android:textColor="@color/colorTextViewTitle"
+            android:textSize="@dimen/input_title_size"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/receiver_title_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/text_receiver_title"
+            android:textColor="@color/colorTextViewTitle"
+            android:textSize="@dimen/input_title_hint_size"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <AutoCompleteTextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@drawable/input_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/receiver_title_hint_text" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/subject_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/text_input_shape"
+        android:paddingBottom="@dimen/input_layout_padding_vertical"
+        android:paddingEnd="@dimen/input_layout_padding_end"
+        android:paddingStart="@dimen/input_layout_padding_start"
+        android:paddingTop="@dimen/input_layout_padding_vertical"
+        app:layout_constraintEnd_toEndOf="@id/receiver_layout"
+        app:layout_constraintStart_toStartOf="@id/receiver_layout"
+        app:layout_constraintTop_toBottomOf="@+id/receiver_layout">
+
+        <TextView
+            android:id="@+id/subject_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginEnd="@dimen/title_text_margin_end"
+            android:gravity="center_vertical"
+            android:text="@string/text_subject_title"
+            android:textColor="@color/colorTextViewTitle"
+            android:textSize="@dimen/input_title_size"
+            app:layout_constraintEnd_toStartOf="@id/subject_edit_text"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/subject_title_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_subject_title"
+            android:textColor="@color/colorTextViewTitle"
+            android:textSize="@dimen/input_title_hint_size"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/subject_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:background="@android:color/transparent"
+            android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
+            android:maxLines="3"
+            android:minLines="1"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@drawable/input_cursor"
+            android:textSize="@dimen/input_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/subject_count_text"
+            app:layout_constraintStart_toEndOf="@id/subject_title_text"
+            app:layout_constraintTop_toBottomOf="@+id/subject_title_hint_text" />
+
+        <TextView
+            android:id="@+id/subject_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end|bottom"
+            android:text="@string/text_subject_count"
+            android:textColor="@color/colorTextViewTitle"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/subject_hint_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/text_subject_hint"
+        android:textColor="@color/colorTextViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/subject_layout" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/message_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/layout_margin_horizontal"
+        android:background="@drawable/message_input_shape"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/message_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|top"
+            android:hint="@string/text_message_hint"
+            android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
+            android:maxLines="5"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@drawable/input_cursor"
+            android:textSize="@dimen/input_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/message_input_bottom_layout"
+            app:layout_constraintEnd_toStartOf="@id/message_expand_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/message_expand_icon"
+            android:layout_width="@dimen/message_layout_icon_size"
+            android:layout_height="@dimen/message_layout_icon_size"
+            android:gravity="end|top"
+            android:src="@drawable/expand_icon"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/message_input_bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/message_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/text_message_count"
+                android:textColor="@color/colorTextCountWarning"
+                android:textSize="@dimen/input_title_hint_size"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/message_send_grey_icon" />
+
+            <ImageView
+                android:id="@+id/message_send_grey_icon"
+                android:layout_width="@dimen/message_layout_icon_size"
+                android:layout_height="@dimen/message_layout_icon_size"
+                android:contentDescription="@string/text_description_message_empty"
+                android:gravity="end|bottom"
+                android:src="@drawable/message_send_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/message_send_blue_icon"
+                android:layout_width="@dimen/message_layout_icon_size"
+                android:layout_height="@dimen/message_layout_icon_size"
+                android:contentDescription="@string/text_description_message_send"
+                android:gravity="end|bottom"
+                android:src="@drawable/message_send_blue"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
