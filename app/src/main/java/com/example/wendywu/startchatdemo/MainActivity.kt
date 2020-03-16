@@ -9,7 +9,7 @@ import android.text.TextWatcher
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.View.OnFocusChangeListener
-import com.example.wendywu.startchatdemo.adapter.ReceiverAutoCompleteAdapter
+import com.example.wendywu.startchatdemo.adapter.ReceiverListAdapter
 import com.example.wendywu.startchatdemo.data.ReceiverItem
 import com.example.wendywu.startchatdemo.utils.*
 import com.google.gson.Gson
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
 //        val listPersonType = object : TypeToken<List<ReceiverItem>>() {}.type
 //        var receivers: List<ReceiverItem> = gson.fromJson(jsonFileString, listPersonType)
-        val adapter = ReceiverAutoCompleteAdapter(receivers, baseContext)
+        val adapter = ReceiverListAdapter(receivers, baseContext)
         receiver_auto_complete_text.threshold = 1
         receiver_auto_complete_text.setAdapter(adapter)
     }

@@ -13,4 +13,7 @@
     <color name="colorReceiverItemMailBorder">#f2f2f2</color>
     <color name="colorReceiverAutoCompleteBorder">#DFE2E7</color>
     <color name="colorReceiverAutoCompleteTextEmail">#7C8494</color>
+    <color name="receiverTextBackgroundPink">#f95ca1</color>
+    <color name="receiverTextBackgroundBlue">#4acff1</color>
+    <color name="receiverTextBackgroundOrange">#f9a249</color>
 </resources>

@@ -16,7 +16,15 @@ data class ReceiverItem(
     }
 
     fun getLabelName(): CharSequence {
-        var lastNameFirstChar = lastName.get(0).toUpperCase().toString()
+        var lastNameFirstChar = lastName[0].toUpperCase().toString()
         return combineText(firstName, " ", lastNameFirstChar, ".")
+    }
+
+    fun getFirstNameChar(): String {
+        return firstName[0].toUpperCase().toString()
+    }
+
+    fun showUserIcon(): Boolean {
+        return image.isNotEmpty()
     }
 }

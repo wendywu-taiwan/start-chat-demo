@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="receiverTextBackgroundColor">
+        <item>@color/receiverTextBackgroundPink</item>
+        <item>@color/receiverTextBackgroundBlue</item>
+        <item>@color/receiverTextBackgroundOrange</item>
+    </array>
+</resources>
