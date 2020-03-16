@@ -6,10 +6,14 @@ import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.View.OnFocusChangeListener
+import com.example.wendywu.startchatdemo.adapter.ReceiverAutoCompleteAdapter
+import com.example.wendywu.startchatdemo.data.ReceiverItem
 import com.example.wendywu.startchatdemo.utils.*
-
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 const val LIMIT_SUBJECT_WARNING_COUNT = 80
 const val LIMIT_SUBJECT_LIMIT_COUNT = 85
@@ -25,7 +29,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setAdapter()
         setListener()
+    }
+
+    private fun setAdapter() {
+        val jsonFileString = getJsonDataFromAsset(applicationContext, "dummy_data.json")
+        Log.d("setAdapter", "jsonFileString:" + jsonFileString)
+
+        val gson = Gson()
+        val receiverType = object : TypeToken<List<ReceiverItem>>() {}.type
+        var receivers: List<ReceiverItem> = gson.fromJson(jsonFileString, receiverType)
+
+//        val listPersonType = object : TypeToken<List<ReceiverItem>>() {}.type
+//        var receivers: List<ReceiverItem> = gson.fromJson(jsonFileString, listPersonType)
+        val adapter = ReceiverAutoCompleteAdapter(receivers, baseContext)
+        receiver_auto_complete_text.threshold = 1
+        receiver_auto_complete_text.setAdapter(adapter)
     }
 
 
@@ -34,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             expandMessageView()
             hideView(message_expand_icon)
         }
+
 
         subject_edit_text.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}

@@ -9,6 +9,7 @@
     <dimen name="title_text_margin_end">10dp</dimen>
 
     <dimen name="message_layout_icon_size">28dp</dimen>
+    <dimen name="border_width">0.5dp</dimen>
 
 
     <!-- font size -->

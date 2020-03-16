@@ -10,6 +10,7 @@
     <color name="colorTextCountWarning">#CC3232</color>
     <color name="colorEditTextCursor">#1895EB</color>
     <color name="colorMessageInputLayoutBorder">#1895EB</color>
-
-
+    <color name="colorReceiverItemMailBorder">#f2f2f2</color>
+    <color name="colorReceiverAutoCompleteBorder">#DFE2E7</color>
+    <color name="colorReceiverAutoCompleteTextEmail">#7C8494</color>
 </resources>

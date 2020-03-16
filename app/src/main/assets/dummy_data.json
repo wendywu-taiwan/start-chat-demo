@@ -1,0 +1,62 @@
+[
+  {
+    "first_name": "Momday",
+    "last_name": "Dok",
+    "mail_address": "md@kaneoh.com",
+    "image": "momday_dok"
+  },
+  {
+    "first_name": "Peggy",
+    "last_name": "Olson",
+    "mail_address": "md@kaneoh.com",
+    "image": "peggy_olson"
+  },
+  {
+    "first_name": "Penelope",
+    "last_name": "Tsai",
+    "mail_address": "tsaipene@gmail.com",
+    "image": "user_icon1"
+  },
+  {
+    "first_name": "Patty",
+    "last_name": "Pearson",
+    "mail_address": "patty_pearson_thegreat@gmail.com",
+    "image": "user_icon2"
+  },
+  {
+    "first_name": "Ishita",
+    "last_name": "Brian",
+    "mail_address": "ishita_brian@gmail.com",
+    "image": ""
+  },
+  {
+    "first_name": "Antonio",
+    "last_name": "Tsai",
+    "mail_address": "antonio_tsai@gmail.com",
+    "image": "user_icon3"
+  },
+  {
+    "first_name": "Brain",
+    "last_name": "Chang",
+    "mail_address": "brian_chang@gmail.com",
+    "image": ""
+  },
+  {
+    "first_name": "Chin",
+    "last_name": "Hua",
+    "mail_address": "chin_hua@gmail.com",
+    "image": "david_lin_icon"
+  },
+  {
+    "first_name": "Dior",
+    "last_name": "Marine",
+    "mail_address": "dior.marine@kaneoh.com",
+    "image": ""
+  },
+  {
+    "first_name": "Febric",
+    "last_name": "Fan",
+    "mail_address": "febric_fan@kaneoh.com",
+    "image": ""
+  }
+]
