@@ -35,7 +35,7 @@ fun setBackgroundDrawable(view: View, id: Int) {
 }
 
 fun setImageDrawable(view: ImageView, id: Int) {
-    view.setImageResource( id)
+    view.setImageResource(id)
 }
 
 fun Context.hideKeyboard(view: View) {
@@ -53,7 +53,6 @@ fun getJsonDataFromAsset(context: Context, fileName: String): String? {
     }
     return jsonString
 }
-
 
 fun Context.drawableIdByName(resourceName: String): Int {
     return resIdByName(resourceName, "drawable")

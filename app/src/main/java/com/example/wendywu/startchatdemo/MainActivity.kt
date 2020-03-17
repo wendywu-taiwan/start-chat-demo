@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -29,10 +28,15 @@ const val LIMIT_SUBJECT_LIMIT_COUNT = 85
 const val LIMIT_MESSAGE_WARNING_COUNT = 4950
 const val LIMIT_MESSAGE_LIMIT_COUNT = 5000
 
+const val SECOND_TO_CLOSE_KEYBOARD = 350
+const val AUTO_COMPLETE_VIEW_DROPDOWN_OFFSET= 90
+
 
 class MainActivity : AppCompatActivity() {
 
     private var receiverLayoutOriginHeight = 0
+    private var receiverLayoutCurrentHeight = 0
+
     private var messageLayoutOriginHeight = 0
 
     private var adapter: ReceiverListAdapter? = null
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var receiverAutoCompleteText: CustomAutoCompleteTextView
     private lateinit var receiverTitleText: TextView
     private lateinit var receiverTitleHintText: TextView
+    private lateinit var receiverEmailErrorText: TextView
     private lateinit var subjectEditText: EditText
     private lateinit var subjectTitleText: TextView
     private lateinit var subjectHintText: TextView
@@ -74,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         receiverAutoCompleteText = receiver_auto_complete_text
         receiverTitleText = receiver_title_text
         receiverTitleHintText = receiver_title_hint_text
+        receiverEmailErrorText = receiver_email_error_text
         subjectEditText = subject_edit_text
         subjectTitleText = subject_title_text
         subjectHintText = subject_hint_text
@@ -83,7 +89,6 @@ class MainActivity : AppCompatActivity() {
         messageCountText = message_count_text
         messageExpandIcon = message_expand_icon
         messageSendIcon = message_send_icon
-
     }
 
     private fun setAdapter() {
@@ -105,11 +110,7 @@ class MainActivity : AppCompatActivity() {
 
         receiverAutoCompleteText.onItemClickListener = OnItemClickListener { _, _, position, _ ->
             val receiverItem = adapter!!.getItem(position)
-            if (receiverItem != null) {
-                addSelectedReceiverItem(receiverItem)
-                if (receiverLayoutOriginHeight == 0) receiverLayoutOriginHeight = addSelectedReceiverScrollLayout.height
-            }
-
+            if (receiverItem != null) addSelectedReceiverItem(receiverItem)
         }
 
         receiverAutoCompleteText.setOnKeyListener(object : View.OnKeyListener {
@@ -117,8 +118,9 @@ class MainActivity : AppCompatActivity() {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     val mailAddress = receiverAutoCompleteText.text.toString()
                     if (!isEmailValid(mailAddress)) {
-                        receiverAutoCompleteText.error = "Please enter correct email";
+                        showView(receiverEmailErrorText)
                     } else {
+                        hideView(receiverEmailErrorText)
                         receiverAutoCompleteText.setText("")
                         val currentTimestamp = System.currentTimeMillis()
                         val receiverItem = ReceiverItem(currentTimestamp.toInt(), mailAddress)
@@ -133,14 +135,21 @@ class MainActivity : AppCompatActivity() {
         // set text change listener
         receiverAutoCompleteText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if (receiverLayoutOriginHeight == 0) receiverLayoutOriginHeight = selected_receiver_scroll_layout.height
+                hideView(receiverEmailErrorText)
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(s: Editable) {
-                val length = receiver_auto_complete_text.text.toString().length
                 checkShowReceiverTitleView()
+                if (receiverLayoutOriginHeight == 0) {
+                    receiverLayoutOriginHeight = addSelectedReceiverScrollLayout.height
+                    receiverLayoutCurrentHeight = addSelectedReceiverScrollLayout.height
+                }
+                if (addSelectedReceiverScrollLayout.height > receiverLayoutCurrentHeight) {
+                    receiverAutoCompleteText.dropDownVerticalOffset = receiverAutoCompleteText.dropDownVerticalOffset + AUTO_COMPLETE_VIEW_DROPDOWN_OFFSET
+                    receiverLayoutCurrentHeight = addSelectedReceiverScrollLayout.height
+                }
             }
         })
 
@@ -188,15 +197,21 @@ class MainActivity : AppCompatActivity() {
         // set on focus listener
         receiverAutoCompleteText.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
+                hideView(receiverEmailErrorText)
+                addSelectedReceiverScrollLayout.layoutParams.height = receiverLayoutOriginHeight
                 setBackgroundDrawable(receiverLayout, R.drawable.text_input_background)
                 hideKeyboard(message_layout)
-                addSelectedReceiverScrollLayout.layoutParams.height = receiverLayoutOriginHeight
+
+                Thread {
+                    Thread.sleep(SECOND_TO_CLOSE_KEYBOARD.toLong())
+                    runOnUiThread { showView(messageLayout) }
+                }.start()
             } else {
+                hideView(messageLayout)
                 setBackgroundDrawable(receiverLayout, R.drawable.text_input_focus_background)
                 addSelectedReceiverScrollLayout.layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
             }
             addSelectedReceiverScrollLayout.requestLayout()
-
         }
 
         subjectEditText.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
@@ -210,10 +225,10 @@ class MainActivity : AppCompatActivity() {
 
         messageEditText.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                setBackgroundDrawable(messageLayout, R.drawable.message_input_type_shape)
+                setBackgroundDrawable(messageLayout, R.drawable.message_input_focus_background)
             } else {
                 hideKeyboard(messageLayout)
-                setBackgroundDrawable(messageLayout, R.drawable.message_input_shape)
+                setBackgroundDrawable(messageLayout, R.drawable.message_input_background)
                 showView(messageExpandIcon)
                 collapseMessageView()
             }
@@ -228,7 +243,6 @@ class MainActivity : AppCompatActivity() {
         val selectedReceiverItemView = SelectedReceiverItemView(this)
         selectedReceiverItemView.setReceiver(receiver) { removeSelectedReceiverItem(receiver.id) }
         addSelectedReceiverLayout.addView(selectedReceiverItemView)
-        Log.d("addSelectedReceiverItem", "receiver id=" + receiver.id)
         selectedReceiverViewMap[receiver.id] = selectedReceiverItemView
         checkShowReceiverTitleView()
         checkMessageSend()

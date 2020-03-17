@@ -4,17 +4,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:layout_marginBottom="20dp"
-    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="@dimen/selected_receiver_item_view_margin_bottom"
+    android:layout_marginEnd="@dimen/selected_receiver_item_view_margin_end"
     android:background="@drawable/receiver_selected_item_background"
-    android:paddingEnd="3dp">
+    android:paddingEnd="@dimen/selected_receiver_item_view_padding_end">
 
     <ImageView
         android:id="@+id/remove_selected_receiver_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="5dp"
-        android:background="@drawable/selected_receiver_remove"
+        android:layout_marginStart="@dimen/remove_selected_receiver_icon_margin_start"
+        android:background="@drawable/cross_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/selected_receiver_text"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,19 +22,18 @@
     <TextView
         android:id="@+id/selected_receiver_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/selected_receiver_text_margin_start"
         android:gravity="center_vertical"
-        android:text="Antonio T."
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/receiver_icon_view"
+        android:textSize="@dimen/text_size_small_plus"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/receiver_icon_view"
-        app:layout_constraintTop_toTopOf="@+id/receiver_icon_view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.wendywu.startchatdemo.utils.ReceiverIconView
         android:id="@+id/receiver_icon_view"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/selected_receiver_text"
         app:layout_constraintStart_toStartOf="parent"

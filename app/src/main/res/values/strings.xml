@@ -8,5 +8,7 @@
     <string name="text_message_count">0/5000</string>
     <string name="text_description_message_send">send message</string>
     <string name="text_description_message_empty">can not send empty message</string>
+    <string name="text_error_mail_format">Please enter the correct email</string>
+
 
 </resources>

@@ -8,13 +8,13 @@
         android:id="@+id/user_image_card_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="@dimen/user_image_card_view_corner_radius"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/colorReceiverAutoCompleteBorder"
-        app:strokeWidth="1dp">
+        app:strokeWidth="@dimen/user_image_card_view_stroke_width">
 
         <ImageView
             android:id="@+id/user_image_icon"
@@ -33,7 +33,7 @@
                 android:id="@+id/mail_address_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="3dp"
+                android:layout_margin="@dimen/mail_address_icon_margin"
                 android:src="@drawable/mail_address_icon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|center_vertical"
-                android:textSize="18dp"
+                android:textSize="@dimen/text_size_large"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
