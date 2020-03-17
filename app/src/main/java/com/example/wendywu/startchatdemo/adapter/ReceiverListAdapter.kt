@@ -1,33 +1,42 @@
 package com.example.wendywu.startchatdemo.adapter
 
 import android.content.Context
-import android.content.res.Resources
-import android.content.res.TypedArray
-import android.graphics.Color
-import android.support.constraint.ConstraintLayout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.example.wendywu.startchatdemo.R
 import com.example.wendywu.startchatdemo.data.ReceiverItem
-import com.example.wendywu.startchatdemo.utils.drawableIdByName
-import com.example.wendywu.startchatdemo.utils.hideView
-import com.example.wendywu.startchatdemo.utils.showView
+import com.example.wendywu.startchatdemo.utils.ReceiverIconView
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ReceiverListAdapter(items: List<ReceiverItem>, ctx: Context) :
-        ArrayAdapter<ReceiverItem>(ctx, R.layout.receiver_list_item, items) {
+        ArrayAdapter<ReceiverItem>(ctx, R.layout.receiver_list_item, items), Filterable {
+
+    private var receivers: List<ReceiverItem> = items
+    private var allReceivers: List<ReceiverItem> = items
+    private var selectedReceivers: ArrayList<ReceiverItem> = ArrayList<ReceiverItem>()
 
     private class ReceiverListViewHolder {
-        internal var image: ImageView? = null
         internal var name: TextView? = null
         internal var email: TextView? = null
-        internal var userImageTextLayout: ConstraintLayout? = null
-        internal var userImageText: TextView? = null
+        internal var receiverIconView: ReceiverIconView? = null
+    }
+
+    override fun getCount(): Int {
+        return receivers.size
+    }
+
+    override fun getItem(p0: Int): ReceiverItem? {
+        return receivers[p0]
+    }
+
+    override fun getItemId(p0: Int): Long {
+        // Or just return p0
+        return receivers[p0].id.toLong()
     }
 
     override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View? {
@@ -39,44 +48,60 @@ class ReceiverListAdapter(items: List<ReceiverItem>, ctx: Context) :
             view = inflater.inflate(R.layout.receiver_list_item, viewGroup, false)
 
             viewHolder = ReceiverListViewHolder()
-            viewHolder.image = view.findViewById<View>(R.id.user_image_icon) as ImageView
             viewHolder.name = view.findViewById<View>(R.id.user_name_text) as TextView
             viewHolder.email = view.findViewById<View>(R.id.user_mail_address_text) as TextView
-            viewHolder.userImageTextLayout = view.findViewById<View>(R.id.user_image_text_layout) as ConstraintLayout
-            viewHolder.userImageText = view.findViewById<View>(R.id.user_image_text) as TextView
+            viewHolder.receiverIconView = view.findViewById<View>(R.id.receiver_icon_view) as ReceiverIconView
+            view.tag = viewHolder
         } else {
             viewHolder = view.tag as ReceiverListViewHolder
         }
 
         val receiver = getItem(i) ?: return view
-
         viewHolder.name!!.text = receiver.getName()
         viewHolder.email!!.text = receiver.mailAddress
+        viewHolder.receiverIconView!!.setReceiver(receiver)
 
-        if (receiver.showUserIcon()) {
-            viewHolder.image!!.setImageResource(context.drawableIdByName(receiver.image))
-            viewHolder.userImageTextLayout?.let { hideView(it) }
-            viewHolder.image?.let { showView(it) }
-        } else {
-            val allColors = context.resources.obtainTypedArray(R.array.receiverTextBackgroundColor)
-            val remainder = i % allColors.length()
-            val color: Int = allColors.getColor(remainder, 0)
-
-            viewHolder.userImageText?.text = receiver.getFirstNameChar()
-            viewHolder.userImageText?.setTextColor(color)
-            viewHolder.userImageTextLayout?.setBackgroundColor(color)
-            viewHolder.userImageTextLayout?.background?.alpha = 70;
-
-            viewHolder.userImageTextLayout?.let { showView(it) }
-            viewHolder.image?.let { hideView(it) }
-            allColors.recycle()
-
-        }
-        if (view != null) {
-            view.tag = viewHolder
-        }
         return view
     }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun publishResults(constraint: kotlin.CharSequence?, results: FilterResults) {
+                receivers = results.values as List<ReceiverItem>
+                notifyDataSetChanged()
+            }
+
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val queryString = constraint?.toString()?.toLowerCase(Locale.ROOT)
+                val filterResults = FilterResults()
+                filterResults.values = if (queryString == null || queryString.isEmpty())
+                    allReceivers
+                else
+                    allReceivers.filter {
+                        (it.lastName.toLowerCase().contains(queryString) ||
+                                it.firstName.toLowerCase().contains(queryString) ||
+                                it.mailAddress.toLowerCase().contains(queryString)) && !selectedReceivers.contains(it)
+                    }
+                return filterResults
+            }
+        }
+    }
+
+    fun hasSelectedItem(): Boolean {
+        Log.d("check hasSelectedItem","size="+selectedReceivers.size)
+        return selectedReceivers.size != 0
+    }
+
+    fun addSelectItem(selectedItem: ReceiverItem) {
+        selectedReceivers.add(selectedItem)
+    }
+
+    fun removeSelectItem(id: Int) {
+        for (receiver in allReceivers) {
+            if (receiver.id == id) {
+                selectedReceivers.remove(receiver)
+                break
+            }
+        }
+    }
 }
-
-

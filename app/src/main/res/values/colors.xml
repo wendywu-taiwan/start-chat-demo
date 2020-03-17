@@ -16,4 +16,6 @@
     <color name="receiverTextBackgroundPink">#f95ca1</color>
     <color name="receiverTextBackgroundBlue">#4acff1</color>
     <color name="receiverTextBackgroundOrange">#f9a249</color>
+    <color name="colorBoarder">#e5e5e5</color>
+    <color name="receiverMailIconBackgroundBlue">#1895eb</color>
 </resources>

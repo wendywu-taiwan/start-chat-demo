@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginBottom="20dp"
+    android:layout_marginEnd="20dp"
+    android:background="@drawable/receiver_selected_item_background"
+    android:paddingEnd="3dp">
+
+    <ImageView
+        android:id="@+id/remove_selected_receiver_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/selected_receiver_remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/selected_receiver_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/selected_receiver_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:gravity="center_vertical"
+        android:text="Antonio T."
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/receiver_icon_view"
+        app:layout_constraintStart_toEndOf="@id/receiver_icon_view"
+        app:layout_constraintTop_toTopOf="@+id/receiver_icon_view" />
+
+    <com.example.wendywu.startchatdemo.utils.ReceiverIconView
+        android:id="@+id/receiver_icon_view"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/selected_receiver_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

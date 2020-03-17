@@ -1,15 +1,14 @@
 package com.example.wendywu.startchatdemo.utils
 
-import android.R.drawable
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.support.v4.content.ContextCompat
+import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import java.io.IOException
-import java.lang.reflect.Field
-
 
 fun combineText(vararg texts: String): CharSequence {
     var result = StringBuilder()
@@ -33,7 +32,10 @@ fun showView(vararg views: View) {
 
 fun setBackgroundDrawable(view: View, id: Int) {
     view.background = (ContextCompat.getDrawable(view.context, id))
+}
 
+fun setImageDrawable(view: ImageView, id: Int) {
+    view.setImageResource( id)
 }
 
 fun Context.hideKeyboard(view: View) {
@@ -51,7 +53,6 @@ fun getJsonDataFromAsset(context: Context, fileName: String): String? {
     }
     return jsonString
 }
-
 
 
 fun Context.drawableIdByName(resourceName: String): Int {
@@ -75,3 +76,8 @@ fun getId(resourceName: String, c: Class<*>): Int {
                 + resourceName + " / " + c, e)
     }
 }
+
+fun isEmailValid(email: CharSequence): Boolean {
+    return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+}
+
